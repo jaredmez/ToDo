@@ -82,3 +82,17 @@ body {
     padding: 10px;
     margin-bottom: 15px;
 }
+
+.add-project-btn {
+    display:inline-block;
+    margin-left: 80px;
+    margin-bottom: 20px;
+}
+
+.add-project-btn:hover {
+    background-color: gainsboro;
+}
+
+.project-input-popup {
+    display: none;
+}
