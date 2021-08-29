@@ -15,7 +15,7 @@ const showAddProjectPopup = () => {
     document.querySelector('.project-input-popup').style.display = "block"
 };
 
-//Add event listeners to "ADD" and "Cancel" buttons on "Add proejct" form
+//Add event listeners to "ADD" and "Cancel" buttons on "Add project" form
 function projectPopupEventListeners() {
     const projectAddBtn = document.querySelector(".project-add-btn");
     const projectCancelBtn = document.querySelector(".project-cancel-btn");
@@ -25,7 +25,9 @@ function projectPopupEventListeners() {
 
 //Event Handlers
 function handleAddProject() {
-    addToProjectList(document.querySelector('.project-input').value)
+    const inputResult = document.querySelector('.project-input').value;
+    addToProjectList(inputResult);
+    addProjectSpecificContent(inputResult);
 }
 
 function handleCancelProject() {
@@ -37,11 +39,29 @@ function handleCancelProject() {
 
 //Create new element from project popup and append to project list
 function addToProjectList(newProjectTitle) {
-    projectTaskEl = document.querySelector(".project-tasks");    
-    newListEl = document.createElement("li");
+    const projectTaskEl = document.querySelector(".project-tasks");    
+    const newListEl = document.createElement("li");
     newListEl.innerText = newProjectTitle;
     projectTaskEl.append(newListEl);
     handleCancelProject();
+}
+
+//Project specific content --> functions used when new project is added
+function addProjectSpecificContent(title) {
+    console.log(title);
+    const projectContentContainer = document.querySelector(".project-content-container");
+    projectContentContainer.innerHTML += `
+        <div class="${title}">
+            <h2> ${title} </h2>
+            <button>Add Task </button>
+        </div>
+        `
+    //add button functionality to <li> element under 'Projects'
+    //create elements in main page
+    //tie main page elements to this project
+    //main page content initially needs to show Title and 'Add Task'
+
+
 }
 
 onload();
