@@ -1,10 +1,16 @@
 
 //Project List Control
 
+// import IsConstructor = require("es-abstract/2015/IsConstructor");
+import Project from './project.js';
+import ProjectList from './projectList.js';
+
 function onload() {
     document.querySelector(".add-project-btn").addEventListener("click", addNewProject);
     projectPopupEventListeners();
 }
+
+let projects = new ProjectList();
 
 function addNewProject() {
     showAddProjectPopup();
@@ -20,7 +26,7 @@ function projectPopupEventListeners() {
     const projectAddBtn = document.querySelector(".project-add-btn");
     const projectCancelBtn = document.querySelector(".project-cancel-btn");
     projectAddBtn.addEventListener('click', handleAddProject);
-    projectCancelBtn.addEventListener('click', handleCancelProject);
+    //projectCancelBtn.addEventListener('click', handleCancelProject);
 }
 
 //Event Handlers
@@ -30,21 +36,31 @@ function handleAddProject() {
     addProjectSpecificContent(inputResult);
 }
 
-function handleCancelProject() {
-    projectInputEl = document.querySelector(".project-input")
-    projectInputEl.value = "";
-    document.querySelector(".project-input-popup").style.display = "none";
-}
+// function handleCancelProject() {
+//     projectInputEl = document.querySelector(".project-input")
+//     projectInputEl.value = "";
+//     document.querySelector(".project-input-popup").style.display = "none";
+// }
 
 
 //Create new element from project popup and append to project list
+const projectTaskEl = document.querySelector(".project-tasks"); 
+let projectListArr = projects.getProjectList();
 function addToProjectList(newProjectTitle) {
-    const projectTaskEl = document.querySelector(".project-tasks");    
-    const newListEl = document.createElement("li");
-    newListEl.innerText = newProjectTitle;
-    projectTaskEl.append(newListEl);
-    handleCancelProject();
+    projects.addProject(new Project(newProjectTitle));   
+    projectListArr.forEach(element => { 
+        const newListEl = document.createElement("li");
+        newListEl.innerText = element.getName();
+        projectTaskEl.append(newListEl);
+    }) 
+    //handleCancelProject();
 }
+
+
+
+
+
+
 
 //Project specific content --> functions used when new project is added
 function addProjectSpecificContent(title) {
@@ -63,6 +79,7 @@ function addProjectSpecificContent(title) {
 
 
 }
+
 
 onload();
 
