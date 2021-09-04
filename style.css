@@ -96,3 +96,28 @@ body {
 .project-input-popup {
     display: none;
 }
+
+.project-content-container {
+    display:flex;
+    padding: 10px;
+}
+
+.projInfo {
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.projTitle {
+    margin-bottom: 15px;
+}
+
+.taskBtn {
+    background-color: lightskyblue;
+    border: 1px solid gray;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.taskBtn:hover {
+    background-color: rgb(76, 178, 241);
+}

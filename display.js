@@ -61,31 +61,15 @@ import ProjectList from './projectList.js'
             projectEl.append(newPT);
         })
     }
-    
-    //Project specific content --> functions used when new project is added
-    // function populateProjectContent() {
-        // const projectContentContainer = document.querySelector(".project-content-container");
-        // projectContentContainer.innerHTML += `
-        //     <div class="${title}">
-        //         <h2> ${title} </h2>
-        //         <button>Add Task </button>
-        //     </div>
-        //     `
-    //     //add button functionality to <li> element under 'Projects'
-    //     //create elements in main page
-    //     //tie main page elements to this project
-    //     //main page content initially needs to show Title and 'Add Task'
-    
-    // }
 
     function projectBtnHandler(e) {
         projectlist.getProjectList().forEach(proj => {
             if (proj.getName() === e.currentTarget.innerHTML) {
                 const projectContentContainer = document.querySelector(".project-content-container");
                 projectContentContainer.innerHTML = `
-                    <div class="${proj.getName()}">
-                        <h2> ${proj.getName()} </h2>
-                        <button>Add Task </button>
+                    <div class="projInfo">
+                        <h2 class="projTitle"> ${proj.getName()} </h2>
+                        <button class="taskBtn">Add Task </button>
                     </div>
                     `
             }
