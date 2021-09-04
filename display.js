@@ -8,7 +8,7 @@ import ProjectList from './projectList.js'
         projectPopupEventListeners();
     }
 
-    let projects = new ProjectList();
+    let projectlist = new ProjectList();
 
     function startUpEvntListeners() {
         projectPopupEventListeners();
@@ -27,58 +27,71 @@ import ProjectList from './projectList.js'
     //Add event listeners to "ADD" and "Cancel" buttons on "Add project" form
     function projectPopupEventListeners() {
         document.querySelector(".project-add-btn").addEventListener('click', handleAddProject);
-        document.querySelector(".project-cancel-btn").addEventListener('click', handleCancelProject);
+        document.querySelector(".project-cancel-btn").addEventListener('click', closePopupHandler);
     }
     
     //Event Handlers for add new project popup
     function handleAddProject() {
         const inputResult = document.querySelector('.project-input').value;
         addToProjectList(inputResult);
-        addProjectSpecificContent(inputResult);
     }
     
-    function handleCancelProject() {
+    function closePopupHandler() {
         document.querySelector(".project-input").value = "";
         document.querySelector(".project-input-popup").style.display = "none";
     }
     
-    
-    //Create new element from project popup and append to project list
-    const projectTaskEl = document.querySelector(".project-tasks"); 
-    let projectListArr = projects.getProjectList();
+    //store user input (new data) in projectlist object, and call DOM functions
     function addToProjectList(newProjectTitle) {
-        projectTaskEl.innerHTML = '';
-        projects.addProject(new Project(newProjectTitle));   
-        projectListArr.forEach(element => { 
-            const newListEl = document.createElement("li");
-            newListEl.innerText = element.getName();
-            projectTaskEl.append(newListEl);
-        }) 
-        handleCancelProject();
+        projectlist.addProject(new Project(newProjectTitle));   
+        closePopupHandler();
+        populateProjectList();
+        //populateProjectContent();
+    }
+    //Create new elements from project list data and append DOM
+    function populateProjectList() {
+        const projectEl = document.querySelector(".project-tasks");
+        projectEl.innerHTML = "";
+
+        const projectArr = projectlist.getProjectList();
+        projectArr.forEach(proj => {
+            const newPT = document.createElement("li");
+            newPT.innerText = proj.getName();
+            newPT.addEventListener('click', projectBtnHandler);
+            projectEl.append(newPT);
+        })
     }
     
-    
-    
-    
-    
-    
-    
     //Project specific content --> functions used when new project is added
-    function addProjectSpecificContent(title) {
-        console.log(title);
-        const projectContentContainer = document.querySelector(".project-content-container");
-        projectContentContainer.innerHTML += `
-            <div class="${title}">
-                <h2> ${title} </h2>
-                <button>Add Task </button>
-            </div>
-            `
-        //add button functionality to <li> element under 'Projects'
-        //create elements in main page
-        //tie main page elements to this project
-        //main page content initially needs to show Title and 'Add Task'
+    // function populateProjectContent() {
+        // const projectContentContainer = document.querySelector(".project-content-container");
+        // projectContentContainer.innerHTML += `
+        //     <div class="${title}">
+        //         <h2> ${title} </h2>
+        //         <button>Add Task </button>
+        //     </div>
+        //     `
+    //     //add button functionality to <li> element under 'Projects'
+    //     //create elements in main page
+    //     //tie main page elements to this project
+    //     //main page content initially needs to show Title and 'Add Task'
     
-    
+    // }
+
+    function projectBtnHandler(e) {
+        projectlist.getProjectList().forEach(proj => {
+            if (proj.getName() === e.currentTarget.innerHTML) {
+                const projectContentContainer = document.querySelector(".project-content-container");
+                projectContentContainer.innerHTML = `
+                    <div class="${proj.getName()}">
+                        <h2> ${proj.getName()} </h2>
+                        <button>Add Task </button>
+                    </div>
+                    `
+            }
+        });
+        console.log(projectlist);
+        console.log(e.currentTarget.innerHTML);
     }
     
 

@@ -2,9 +2,9 @@
 //Project List Control
 
 // import IsConstructor = require("es-abstract/2015/IsConstructor");
-import  {onload}  from './display.js';
+import*  as Dispfunc from './display.js';
 
-onload();
+Dispfunc.onload();
 
 
 //-----------------code below is unused----------------
