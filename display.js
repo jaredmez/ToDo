@@ -62,6 +62,16 @@ import ProjectList from './projectList.js'
         })
     }
 
+    //Add event listener to "Add Task" button
+    function addTaskEvntListener() {
+        document.querySelector(".taskBtn").addEventListener("click", addTaskHandler)
+    }
+
+    function addTaskHandler() {
+        showTaskForm();
+    }
+
+    //handles DOM to show specific project tasks when clicked from left menu
     function projectBtnHandler(e) {
         projectlist.getProjectList().forEach(proj => {
             if (proj.getName() === e.currentTarget.innerHTML) {
@@ -73,10 +83,22 @@ import ProjectList from './projectList.js'
                     </div>
                     `
             }
+        addTaskEvntListener();
+        //write a function that populates project tasks 
         });
         console.log(projectlist);
         console.log(e.currentTarget.innerHTML);
     }
     
+    function showTaskForm() {
+        const projectTasksEl = document.querySelector(".projInfo");
+        const popupEl = document.createElement('div');
+        popupEl.innerHTML = `
+            <input class="task-input-area">
+            <button class="addTaskBtn">Add</button>
+            <button class="cancelTaskBtn">Cancel</button>
+            `;
+        projectTasksEl.append(popupEl);
+    }
 
 
