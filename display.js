@@ -72,6 +72,7 @@ import Task from './task.js'
                     <div class="projInfo">
                         <h2 class="projTitle">${proj.getName()}</h2>
                         <button class="taskBtn">Add Task </button>
+                        <div class="task-list-container"></div>
                     </div>
                     `
             }
@@ -128,11 +129,21 @@ import Task from './task.js'
         projectlist.getProjectList().forEach(proj => {
             if (proj.getName() === projName) {
                 proj.addTask(new Task(taskInput));
-                console.log(proj.getTasks());
             }
         });
-        console.log(projectlist.getProjectList());
         closeTaskForm();
+        showProjectTasks();
+    }
+
+    function showProjectTasks() {
+        const currentProjectListEl = document.querySelector(".task-list-container");
+        const projectTitle = document.querySelector(".projTitle").innerText;
+        const projectContent = projectlist.getProject(projectTitle);
+        projectContent.getTasks().forEach(task => {
+            const taskEl = document.createElement("div");
+            taskEl.innerHTML = task.getTaskName();
+            currentProjectListEl.append(taskEl);
+        })
     }
 
     function closeTaskForm() {
