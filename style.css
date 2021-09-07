@@ -116,8 +116,18 @@ body {
     border: 1px solid gray;
     padding: 4px;
     border-radius: 10px;
+    margin-bottom: 15px;
 }
 
 .taskBtn:hover {
     background-color: rgb(76, 178, 241);
+}
+
+.task-form-container {
+    display: none;
+    margin-top: 20px;
+}
+
+.task-list-container>div {
+    margin-bottom: 10px;
 }

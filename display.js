@@ -74,6 +74,12 @@ import Task from './task.js'
                         <h2 class="projTitle">${proj.getName()}</h2>
                         <button class="taskBtn">Add Task </button>
                         <div class="task-list-container"></div>
+
+                        <div class="task-form-container">
+                            <input class="task-input-area">
+                            <button class="addTaskBtn">Add</button>
+                            <button class="cancelTaskBtn">Cancel</button>
+                        </div>
                     </div>
                     `;
             }
@@ -101,16 +107,16 @@ import Task from './task.js'
     }
 
     function showTaskForm() {
-        const projectTasksEl = document.querySelector(".projInfo");
-        const popupEl = document.createElement('div');
-        popupEl.classList.add('task-form-container');
-        popupEl.innerHTML = `
-            <input class="task-input-area">
-            <button class="addTaskBtn">Add</button>
-            <button class="cancelTaskBtn">Cancel</button>
-            `;
-        projectTasksEl.append(popupEl);
-
+        // const projectTasksEl = document.querySelector(".projInfo");
+        // const popupEl = document.createElement('div');
+        // popupEl.classList.add('task-form-container');
+        // popupEl.innerHTML = `
+        //     <input class="task-input-area">
+        //     <button class="addTaskBtn">Add</button>
+        //     <button class="cancelTaskBtn">Cancel</button>
+        //     `;
+        // projectTasksEl.append(popupEl);
+        document.querySelector(".task-form-container").style.display = 'block';
         setTaskBtnListeners();
     }
 
