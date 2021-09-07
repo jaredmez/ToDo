@@ -47,7 +47,6 @@ import Task from './task.js'
         projectlist.addProject(new Project(newProjectTitle));   
         closePopupHandler();
         populateProjectList();
-        //populateProjectContent();
     }
     //Create new elements from project list data and append DOM
     function populateProjectList() {
@@ -65,6 +64,8 @@ import Task from './task.js'
 
     //handles DOM to show specific project tasks when clicked from left menu
     function projectBtnHandler(e) {
+        console.log(projectlist.getProjectList());
+        console.log(e.currentTarget.innerHTML);
         projectlist.getProjectList().forEach(proj => {
             if (proj.getName() === e.currentTarget.innerHTML) {
                 const projectContentContainer = document.querySelector(".project-content-container");
@@ -74,13 +75,11 @@ import Task from './task.js'
                         <button class="taskBtn">Add Task </button>
                         <div class="task-list-container"></div>
                     </div>
-                    `
+                    `;
             }
-        addTaskEvntListener();
-        //write a function that populates project tasks 
         });
-        //console.log(projectlist);
-        //c.log(e.currentTarget.innerHTML);
+        addTaskEvntListener();
+        showProjectTasks();
     }
 
     //Add event listener to "Add Task" button
@@ -137,8 +136,10 @@ import Task from './task.js'
 
     function showProjectTasks() {
         const currentProjectListEl = document.querySelector(".task-list-container");
+        currentProjectListEl.innerHTML = '';
         const projectTitle = document.querySelector(".projTitle").innerText;
         const projectContent = projectlist.getProject(projectTitle);
+        //console.log(projectContent);
         projectContent.getTasks().forEach(task => {
             const taskEl = document.createElement("div");
             taskEl.innerHTML = task.getTaskName();
@@ -150,6 +151,7 @@ import Task from './task.js'
         document.querySelector(".task-input-area").innerHTML = "";
         document.querySelector(".task-form-container").style.display = "none";
         showMainTaskBtn();
+        ///////////////////////////
     }
 
 
