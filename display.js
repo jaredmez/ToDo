@@ -1,5 +1,6 @@
 import Project from './project.js'
 import ProjectList from './projectList.js'
+import Task from './task.js'
 
 
     
@@ -62,15 +63,6 @@ import ProjectList from './projectList.js'
         })
     }
 
-    //Add event listener to "Add Task" button
-    function addTaskEvntListener() {
-        document.querySelector(".taskBtn").addEventListener("click", addTaskHandler)
-    }
-
-    function addTaskHandler() {
-        showTaskForm();
-    }
-
     //handles DOM to show specific project tasks when clicked from left menu
     function projectBtnHandler(e) {
         projectlist.getProjectList().forEach(proj => {
@@ -78,7 +70,7 @@ import ProjectList from './projectList.js'
                 const projectContentContainer = document.querySelector(".project-content-container");
                 projectContentContainer.innerHTML = `
                     <div class="projInfo">
-                        <h2 class="projTitle"> ${proj.getName()} </h2>
+                        <h2 class="projTitle">${proj.getName()}</h2>
                         <button class="taskBtn">Add Task </button>
                     </div>
                     `
@@ -86,19 +78,70 @@ import ProjectList from './projectList.js'
         addTaskEvntListener();
         //write a function that populates project tasks 
         });
-        console.log(projectlist);
-        console.log(e.currentTarget.innerHTML);
+        //console.log(projectlist);
+        //c.log(e.currentTarget.innerHTML);
     }
-    
+
+    //Add event listener to "Add Task" button
+    function addTaskEvntListener() {
+        document.querySelector(".taskBtn").addEventListener("click", addTaskHandler)
+    }
+
+    function addTaskHandler() {
+        showTaskForm();
+        hideMainTaskBtn();
+    }
+
+    function hideMainTaskBtn() {
+        document.querySelector(".taskBtn").style.display = "none";
+    }
+    function showMainTaskBtn() {
+        document.querySelector(".taskBtn").style.display = "block";
+        
+    }
+
     function showTaskForm() {
         const projectTasksEl = document.querySelector(".projInfo");
         const popupEl = document.createElement('div');
+        popupEl.classList.add('task-form-container');
         popupEl.innerHTML = `
             <input class="task-input-area">
             <button class="addTaskBtn">Add</button>
             <button class="cancelTaskBtn">Cancel</button>
             `;
         projectTasksEl.append(popupEl);
+
+        setTaskBtnListeners();
     }
+
+    function setTaskBtnListeners() {
+        document.querySelector(".addTaskBtn").addEventListener("click", addTaskToProject);
+        document.querySelector(".cancelTaskBtn").addEventListener("click", closeTaskForm);
+    }
+
+
+    //take task input data and store within respective project
+    function addTaskToProject() {
+        const taskInput = document.querySelector(".task-input-area").value;
+        const projName = document.querySelector(".projTitle").innerText;
+        
+        projectlist.getProjectList().forEach(proj => {
+            if (proj.getName() === projName) {
+                proj.addTask(new Task(taskInput));
+                console.log(proj.getTasks());
+            }
+        });
+        console.log(projectlist.getProjectList());
+        closeTaskForm();
+    }
+
+    function closeTaskForm() {
+        document.querySelector(".task-input-area").innerHTML = "";
+        document.querySelector(".task-form-container").style.display = "none";
+        showMainTaskBtn();
+    }
+
+
+    
 
 
