@@ -107,15 +107,6 @@ import Task from './task.js'
     }
 
     function showTaskForm() {
-        // const projectTasksEl = document.querySelector(".projInfo");
-        // const popupEl = document.createElement('div');
-        // popupEl.classList.add('task-form-container');
-        // popupEl.innerHTML = `
-        //     <input class="task-input-area">
-        //     <button class="addTaskBtn">Add</button>
-        //     <button class="cancelTaskBtn">Cancel</button>
-        //     `;
-        // projectTasksEl.append(popupEl);
         document.querySelector(".task-form-container").style.display = 'block';
         setTaskBtnListeners();
     }
@@ -145,12 +136,27 @@ import Task from './task.js'
         currentProjectListEl.innerHTML = '';
         const projectTitle = document.querySelector(".projTitle").innerText;
         const projectContent = projectlist.getProject(projectTitle);
-        //console.log(projectContent);
+        //
         projectContent.getTasks().forEach(task => {
             const taskEl = document.createElement("div");
-            taskEl.innerHTML = task.getTaskName();
+            taskEl.classList.add('task-item');
+            taskEl.innerHTML = `${task.getTaskName()}<div
+            class="delete-task-btn" id=${task.getTaskName()}>X</div>`;
             currentProjectListEl.append(taskEl);
         })
+
+        initiateTaskListeners();
+    }
+
+    function initiateTaskListeners() {
+        document.querySelector(".task-list-container").addEventListener('click', deleteTaskhandler);
+    }
+
+    function deleteTaskhandler(e) {
+        const projectName = document.querySelector(".projTitle").innerText;
+        const projectObj = projectlist.getProject(projectName);
+        projectObj.removeTask(e.target.id);
+        showProjectTasks();
     }
 
     function closeTaskForm() {

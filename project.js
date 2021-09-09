@@ -17,4 +17,10 @@ export default class Project {
     addTask(input) {
         this.tasks.push(input);
     }
+
+    removeTask(taskName) {
+        this.tasks = this.tasks.filter(task => {
+            return task.getTaskName() != taskName;
+        })
+    }
 }

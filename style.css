@@ -100,11 +100,13 @@ body {
 .project-content-container {
     display:flex;
     padding: 10px;
+    flex: 2;
 }
 
 .projInfo {
     margin-left: 40px;
     margin-top: 20px;
+    width: 100%;
 }
 
 .projTitle {
@@ -128,6 +130,26 @@ body {
     margin-top: 20px;
 }
 
+.task-list-container{
+    width: 100%;
+}
+
 .task-list-container>div {
     margin-bottom: 10px;
+   
+}
+
+.delete-task-btn {
+    float: right;
+    margin-right: 20px;
+}
+
+.delete-task-btn:hover {
+    background-color: red;
+    border-radius: 30px;
+}
+
+.task-item {
+    padding: 5px;
+    border: .5px solid grey;
 }
